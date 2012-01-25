@@ -1,0 +1,44 @@
+diff -ru a/gdk-pixbuf/io-gdip-animation.c b/gdk-pixbuf/io-gdip-animation.c
+--- a/gdk-pixbuf/io-gdip-animation.c	2011-12-17 01:43:53.000000000 +0400
++++ b/gdk-pixbuf/io-gdip-animation.c	2012-01-26 02:43:58.005837667 +0400
+@@ -37,10 +37,14 @@
+ static GdkPixbufAnimationIter* gdk_pixbuf_gdip_anim_get_iter (GdkPixbufAnimation *anim,
+                                                              const GTimeVal     *start_time);
+ 
+-
+ G_DEFINE_TYPE (GdkPixbufGdipAnim, gdk_pixbuf_gdip_anim, GDK_TYPE_PIXBUF_ANIMATION);
+ 
+ static void
++gdk_pixbuf_gdip_anim_iter_init (GdkPixbufGdipAnimIter *iter)
++{
++}
++
++static void
+ gdk_pixbuf_gdip_anim_init (GdkPixbufGdipAnim *anim)
+ {
+ }
+diff -ru a/gdk-pixbuf/Makefile.am b/gdk-pixbuf/Makefile.am
+--- a/gdk-pixbuf/Makefile.am	2011-12-17 01:44:16.000000000 +0400
++++ b/gdk-pixbuf/Makefile.am	2012-01-26 02:50:26.095877318 +0400
+@@ -521,7 +521,7 @@
+ 	-DGDK_PIXBUF_ENABLE_BACKEND
+ 
+ AM_CPPFLAGS = "-DPIXBUF_LIBDIR=\"$(loaderdir)\"" "-DBUILT_MODULES_DIR=\"$(srcdir)/.libs\""
+-LDADDS = libgdk_pixbuf-$(GDK_PIXBUF_API_VERSION).la $(GDK_PIXBUF_DEP_LIBS)
++LDADDS = libgdk_pixbuf-$(GDK_PIXBUF_API_VERSION).la $(GDK_PIXBUF_DEP_LIBS) -lgdiplus
+ 
+ noinst_PROGRAMS = test-gdk-pixbuf
+ test_gdk_pixbuf_LDADD = $(LDADDS)
+diff -ru a/tests/Makefile.am b/tests/Makefile.am
+--- a/tests/Makefile.am	2011-08-16 05:45:14.000000000 +0400
++++ b/tests/Makefile.am	2012-01-26 02:55:24.913518060 +0400
+@@ -11,7 +11,7 @@
+ 
+ LDADDS = \
+ 	$(top_builddir)/gdk-pixbuf/libgdk_pixbuf-$(GDK_PIXBUF_API_VERSION).la \
+-	$(GDK_PIXBUF_DEP_LIBS)
++	$(GDK_PIXBUF_DEP_LIBS) -lgdiplus
+ 
+ noinst_PROGRAMS = \
+ 	pixbuf-read			\
+

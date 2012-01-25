@@ -1,0 +1,220 @@
+diff -ru a/examples/Makefile.am b/examples/Makefile.am
+--- a/examples/Makefile.am	2011-12-19 17:58:28.000000000 +0400
++++ b/examples/Makefile.am	2012-01-25 16:16:47.347340986 +0400
+@@ -46,7 +46,7 @@
+ 
+ LDADD = \
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid
+ 
+ drawing_LDADD = $(LDADD) \
+ 	$(top_builddir)/gdk/libgdk-3.la
+diff -ru a/gdk/tests/Makefile.am b/gdk/tests/Makefile.am
+--- a/gdk/tests/Makefile.am	2011-08-16 06:04:34.000000000 +0400
++++ b/gdk/tests/Makefile.am	2012-01-25 15:59:54.557505255 +0400
+@@ -21,15 +21,15 @@
+ 
+ TEST_PROGS        += gdk-color
+ gdk_color_SOURCES  = gdk-color.c
+-gdk_color_LDADD    = $(progs_ldadd)
++gdk_color_LDADD    = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS        += encoding
+ encoding_SOURCES   = encoding.c
+-encoding_LDADD     = $(progs_ldadd)
++encoding_LDADD     = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS        += display
+ display_SOURCES    = display.c
+-display_LDADD      = $(progs_ldadd)
++display_LDADD      = $(progs_ldadd) -luuid
+ 
+ CLEANFILES = \
+ 	cairosurface.png	\
+diff -ru a/gdk/win32/gdkmain-win32.c b/gdk/win32/gdkmain-win32.c
+--- a/gdk/win32/gdkmain-win32.c	2011-08-16 06:04:34.000000000 +0400
++++ b/gdk/win32/gdkmain-win32.c	2012-01-25 16:11:02.654523011 +0400
+@@ -64,7 +64,7 @@
+     /* Placeholder in --max-colors=COLORS in --help output */ N_("COLORS") },
+   { NULL }
+ };
+-
++/*
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+ 	 DWORD     dwReason,
+@@ -74,7 +74,7 @@
+ 
+   return TRUE;
+ }
+-
++*/
+ void
+ _gdk_win32_windowing_init (void)
+ {
+diff -ru a/gtk/a11y/gail.c b/gtk/a11y/gail.c
+--- a/gtk/a11y/gail.c	2011-12-19 17:58:28.000000000 +0400
++++ b/gtk/a11y/gail.c	2012-01-25 16:08:02.211759234 +0400
+@@ -800,5 +800,5 @@
+ 
+   _gail_util_install ();
+ 
+-  atk_misc_instance = g_object_new (GAIL_TYPE_MISC, NULL);
++//  atk_misc_instance = g_object_new (GAIL_TYPE_MISC, NULL);
+ }
+diff -ru a/gtk/gtkmain.c b/gtk/gtkmain.c
+--- a/gtk/gtkmain.c	2011-12-19 17:58:28.000000000 +0400
++++ b/gtk/gtkmain.c	2012-01-25 16:11:19.611218897 +0400
+@@ -132,7 +132,7 @@
+ #ifdef G_OS_WIN32
+ 
+ static HMODULE gtk_dll;
+-
++/*
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+          DWORD     fdwReason,
+@@ -147,7 +147,7 @@
+ 
+   return TRUE;
+ }
+-
++*/
+ /* These here before inclusion of gtkprivate.h so that the original
+  * GTK_LIBDIR and GTK_LOCALEDIR definitions are seen. Yeah, this is a
+  * bit sucky.
+diff -ru a/gtk/Makefile.am b/gtk/Makefile.am
+--- a/gtk/Makefile.am	2011-12-19 17:58:28.000000000 +0400
++++ b/gtk/Makefile.am	2012-01-25 16:06:16.594653465 +0400
+@@ -1012,7 +1012,7 @@
+ LDADDS =								\
+ 	libgtk-3.la							\
+ 	$(top_builddir)/gdk/libgdk-3.la				\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid
+ 
+ if HAVE_INTROSPECTION
+ introspection_files = \
+diff -ru a/gtk/tests/Makefile.am b/gtk/tests/Makefile.am
+--- a/gtk/tests/Makefile.am	2011-12-19 17:58:28.000000000 +0400
++++ b/gtk/tests/Makefile.am	2012-01-25 16:13:44.403622063 +0400
+@@ -25,7 +25,7 @@
+ 
+ TEST_PROGS			+= testing
+ testing_SOURCES			 = testing.c
+-testing_LDADD			 = $(progs_ldadd)
++testing_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= treemodel
+ treemodel_SOURCES		 = \
+@@ -38,23 +38,23 @@
+ 				modelrefcount.c \
+ 				gtktreemodelrefcount.h \
+ 				gtktreemodelrefcount.c
+-treemodel_LDADD			 = $(progs_ldadd)
++treemodel_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= treeview
+ treeview_SOURCES		 = treeview.c
+-treeview_LDADD			 = $(progs_ldadd)
++treeview_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= treeview-scrolling
+ treeview_scrolling_SOURCES	 = treeview-scrolling.c
+-treeview_scrolling_LDADD	 = $(progs_ldadd) -lm
++treeview_scrolling_LDADD	 = $(progs_ldadd) -lm -luuid
+ 
+ TEST_PROGS			+= recentmanager
+ recentmanager_SOURCES 		 = recentmanager.c
+-recentmanager_LDADD   		 = $(progs_ldadd)
++recentmanager_LDADD   		 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= floating
+ floating_SOURCES		 = floating.c
+-floating_LDADD			 = $(progs_ldadd)
++floating_LDADD			 = $(progs_ldadd) -luuid
+ 
+ #TEST_PROGS			+= object
+ #object_SOURCES			 = object.c pixbuf-init.c
+@@ -74,7 +74,7 @@
+ 
+ TEST_PROGS			+= builder
+ builder_SOURCES			 = builder.c
+-builder_LDADD			 = $(progs_ldadd)
++builder_LDADD			 = $(progs_ldadd) -luuid
+ builder_LDFLAGS			 = -export-dynamic
+ 
+ if OS_UNIX
+@@ -85,47 +85,47 @@
+ 
+ TEST_PROGS			+= textbuffer
+ textbuffer_SOURCES		 = textbuffer.c pixbuf-init.c
+-textbuffer_LDADD		 = $(progs_ldadd)
++textbuffer_LDADD		 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= textiter
+ textiter_SOURCES		 = textiter.c
+-textiter_LDADD			 = $(progs_ldadd)
++textiter_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= expander
+ expander_SOURCES		 = expander.c
+-expander_LDADD			 = $(progs_ldadd)
++expander_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= action
+ action_SOURCES			 = action.c
+-action_LDADD			 = $(progs_ldadd)
++action_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= stylecontext
+ stylecontext_SOURCES		 = stylecontext.c
+-stylecontext_LDADD		 = $(progs_ldadd)
++stylecontext_LDADD		 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= papersize
+ papersize_SOURCES		 = papersize.c
+-papersize_LDADD			 = $(progs_ldadd)
++papersize_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= cellarea
+ cellarea_SOURCES		 = cellarea.c
+-cellarea_LDADD			 = $(progs_ldadd)
++cellarea_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= treepath
+ treepath_SOURCES		 = treepath.c
+-treepath_LDADD			 = $(progs_ldadd)
++treepath_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= accessible
+ accessible_SOURCES		 = accessible.c
+-accessible_LDADD		 = $(progs_ldadd)
++accessible_LDADD		 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= entry
+ entry_SOURCES			 = entry.c
+-entry_LDADD			 = $(progs_ldadd)
++entry_LDADD			 = $(progs_ldadd) -luuid
+ 
+ TEST_PROGS			+= grid
+ grid_SOURCES			 = grid.c
+-grid_LDADD			 = $(progs_ldadd)
++grid_LDADD			 = $(progs_ldadd) -luuid
+ 
+ EXTRA_DIST +=				\
+ 	file-chooser-test-dir/empty     \
+diff -ru a/perf/Makefile.am b/perf/Makefile.am
+--- a/perf/Makefile.am	2011-11-07 22:47:37.000000000 +0400
++++ b/perf/Makefile.am	2012-01-25 16:15:40.854533528 +0400
+@@ -16,7 +16,7 @@
+ LDADDS = \
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+ 	$(top_builddir)/gdk/libgdk-3.la	\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid
+ 
+ noinst_PROGRAMS	= 	\
+ 	testperf
+

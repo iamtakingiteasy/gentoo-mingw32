@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit libtool mingw32
+inherit autotools libtool mingw32
 
 
 DESCRIPTION="Image loading library for GTK+"
@@ -28,21 +28,30 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 "
-
+:
 src_prepare() {
+	epatch "${FILESDIR}/${M32_PN}-2.24.1-io-gdip-anim-fix.patch"
 	epatch "${FILESDIR}/${M32_PN}-2.24.1-pkgconfig.patch"
 	epatch "${FILESDIR}/${M32_PN}-2.25.0-dllmain.patch"
 	sed -i -e 's:libpng15:libpng libpng15:' configure.ac || die
-
+	sed \
+		-e '/^Libs:/{s/$/ -lgdiplus -lz/}' \
+		-e '/^Requires:/{s/$/ libpng/}' \
+		-i \
+			gdk-pixbuf-2.0.pc.in \
+	|| die
+	
 	elibtoolize
 	eautoreconf
 }
 
 src_configure() {
 	econf \
+		$(use_with jpeg libjpeg) \
+		$(use_with tiff libtiff) \
 		--disable-shared \
-		--disable-modiles \
 		--with-included-loaders=yes \
+		--disable-modiles \
 	|| die "econf failed"
 
 }
