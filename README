@@ -1,6 +1,16 @@
-emerge -av crossdev
-crossdev -t i686-mingw32
+* Emerge crossdev:
 
-i686-mingw32-emerge -av mingw32-gtk+:2
-i686-mingw32-emerge -av mingw32-gtk+:3
+# emerge -av crossdev
+
+* Crossdev cross-compile toolchain:
+# crossdev -t i686-mingw32
+
+* Add this repo to PORTDIR_OVERLAY variable of /usr/i686-mingw32/etc/portage/make.conf 
+
+* Emerge package you want:
+
+# i686-mingw32-emerge -av mingw32-gtk+:2 # for gtk-2
+# i686-mingw32-emerge -av mingw32-gtk+:3 # for gtk-3
+
+Or any other package you like
 

@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit toolchain-funcs versionator mingw32
+inherit autotools autotools-utils toolchain-funcs versionator mingw32
 
 EGIT_REPO_URI="git://anongit.freedesktop.org/git/pixman"
 
@@ -58,6 +58,10 @@ src_configure() {
 		--disable-gtk \
 		--disable-shared \
 	|| die "econf failed"
+}
+
+src_compile() {
+	autotools-utils_src_compile
 }
 
 src_install() {
