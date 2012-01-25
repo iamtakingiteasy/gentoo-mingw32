@@ -1,3 +1,6 @@
+This set of ebuilds targets of providing packages for cross-compilation under
+linux for mingw32 (and, in future, probably mingw64 platform)
+
 * Emerge crossdev:
 
 # emerge -av crossdev
@@ -5,7 +8,8 @@
 * Crossdev cross-compile toolchain:
 # crossdev -t i686-mingw32
 
-* Add this repo to PORTDIR_OVERLAY variable of /usr/i686-mingw32/etc/portage/make.conf 
+* Add this repo to PORTDIR_OVERLAY variable of 
+  /usr/i686-mingw32/etc/portage/make.conf 
 
 * Emerge package you want:
 
@@ -14,3 +18,5 @@
 
 Or any other package you like
 
+! DO NOT ! try to install this packages with regular emerge. it will fail and  
+           probably break your system. You're warned.
