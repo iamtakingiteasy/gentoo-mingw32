@@ -17,7 +17,7 @@ LICENSE="as-is"
 SLOT="0"
 
 KEYWORDS="x86 amd64"
-IUSE="lzma jpeg zlib jbig +cxx"
+IUSE="lzma +jpeg +zlib jbig +cxx"
 
 RDEPEND="
 	jpeg? ( media-libs/mingw32-jpeg )

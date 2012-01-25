@@ -5,11 +5,11 @@
 EAPI=4
 
 inherit mingw32
-GNOME_ORG_MODULE=${M32_PN}
-inherit gnome2
 
 DESCRIPTION="GTK+ & GNOME Accessibility Toolkit"
 HOMEPAGE="http://projects.gnome.org/accessibility/"
+
+SRC_URI="mirror://gnome/sources/atk/${PV/%.*}/${M32_P}.tar.xz"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -24,9 +24,7 @@ DEPEND="
 	${RDEPEND}
 "
 
-
 src_prepare() {
-	gnome2_src_prepare
 	sed 's/^\(SUBDIRS =.*\)tests\(.*\)$/\1\2/' \
 		-i Makefile.am Makefile.in \
 	|| die "sed failed"

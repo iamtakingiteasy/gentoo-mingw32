@@ -4,19 +4,19 @@
 
 EAPI=4
 
-inherit mingw32
-GNOME_ORG_MODULE=${M32_PN}
-inherit gnome.org libtool
+inherit libtool mingw32
 
 
 DESCRIPTION="Image loading library for GTK+"
 HOMEPAGE="http://www.gtk.org/"
 
+SRC_URI="mirror://gnome/sources/gdk-pixbuf/${PV%.*}/${M32_P}.tar.xz"
+
 LICENSE="LGPL-2"
 SLOT="2"
 
 KEYWORDS="x86 amd64"
-IUSE="jpeg tiff"
+IUSE="+jpeg +tiff"
 
 RDEPEND="
 	dev-libs/mingw32-glib

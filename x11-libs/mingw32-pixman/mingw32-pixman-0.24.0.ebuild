@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit xorg-2 toolchain-funcs versionator mingw32
+inherit toolchain-funcs versionator mingw32
 
 EGIT_REPO_URI="git://anongit.freedesktop.org/git/pixman"
 
@@ -20,11 +20,12 @@ IUSE="altivec mmx sse2"
 RDEPEND=""
 DEPEND=""
 
-PATCHES=( "${FILESDIR}/${M32_P}-posix-test.patch" )
-XORG_EAUTORECONF="yes"
-XORG_PACKAGE_NAME=${M32_PN}
-SRC_URI="${XORG_BASE_INDIVIDUAL_URI}/${XORG_MODULE}${M32_P}.tar.bz2"
+SRC_URI="http://xorg.freedesktop.org/releases/individual/lib/${M32_P}.tar.bz2"
 
+src_prepare() {
+	epatch "${FILESDIR}/${M32_P}-posix-test.patch"
+	eautoreconf
+}
 
 
 src_configure() {

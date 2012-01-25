@@ -4,17 +4,14 @@
 
 EAPI=4
 
-inherit mingw32
-GNOME_TARBALL_SUFFIX="xz"
-GNOME_ORG_MODULE=${M32_PN}
-inherit eutils flag-o-matic gnome.org libtool virtualx autotools
+inherit eutils flag-o-matic libtool autotools mingw32
 
 
 DESCRIPTION="Gimp ToolKit +"
 HOMEPAGE="http://www.gtk.org/"
 
 SRC_URI="
-	${SRC_URI}
+	mirror://gnome/sources/gtk+/${PV%.*}/${M32_P}.tar.xz
 	mirror://gentoo/introspection.m4.bz2
 "
 

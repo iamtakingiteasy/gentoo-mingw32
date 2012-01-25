@@ -4,12 +4,10 @@
 
 EAPI=4
 
-inherit mingw32
-GNOME_ORG_MODULE=${M32_PN}
-inherit autotools gnome.org libtool eutils flag-o-matic pax-utils virtualx
+inherit autotools libtool eutils flag-o-matic mingw32
 
 SRC_URI="
-	${SRC_URI}
+	mirror://gnome/sources/glib/${PV%.*}/${M32_P}.tar.xz
 	http://pkgconfig.freedesktop.org/releases/pkg-config-0.26.tar.gz
 "
 

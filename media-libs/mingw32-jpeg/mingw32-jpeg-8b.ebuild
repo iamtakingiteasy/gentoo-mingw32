@@ -45,14 +45,10 @@ src_configure() {
 
 }
 
-src_compile() {
-	emake DESTDIR="${D}" install \
-	|| die "emake failed"
-}
-
 
 src_install() {
-	default
+	emake DESTDIR="${D}" install \
+	|| die "emake failed"
 
 	clean_files
 }

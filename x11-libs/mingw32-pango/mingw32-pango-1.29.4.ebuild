@@ -4,13 +4,13 @@
 
 EAPI=4
 
-inherit mingw32
-GNOME_ORG_MODULE=${M32_PN}
-inherit gnome2 autotools eutils toolchain-funcs
+inherit autotools eutils toolchain-funcs mingw32
 
 
 DESCRIPTION="Internationalized text layout and rendering library"
 HOMEPAGE="http://www.pango.org/"
+
+SRC_URI="mirror://gnome/sources/pango/${PV/%.*}/${M32_P}.tar.xz"
 
 LICENSE="LGPL-2 FTL"
 SLOT="0"
