@@ -1,0 +1,22 @@
+diff -ru a/atk/atkobject.c b/atk/atkobject.c
+--- a/atk/atkobject.c	2011-09-19 21:06:54.000000000 +0400
++++ b/atk/atkobject.c	2012-01-22 20:13:00.698054836 +0400
+@@ -364,7 +364,7 @@
+ #ifdef G_OS_WIN32
+ 
+ static HMODULE atk_dll;
+-
++/*
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+ 	 DWORD     fdwReason,
+@@ -380,6 +380,8 @@
+   return TRUE;
+ }
+ 
++*/
++
+ static const char *
+ get_atk_locale_dir (void)
+ {
+
