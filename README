@@ -1,6 +1,6 @@
 emerge -av crossdev
 crossdev -t i686-mingw32
 
-emerge -av mingw32-gtk+:2
-emerge -av mingw32-gtk+:3
+i686-mingw32-emerge -av mingw32-gtk+:2
+i686-mingw32-emerge -av mingw32-gtk+:3
 
