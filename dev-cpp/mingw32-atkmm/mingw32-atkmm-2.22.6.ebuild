@@ -4,34 +4,30 @@
 
 EAPI=4
 
-
-
 inherit eutils mingw32
 
-MY_P="${M32_PN/-utils}-${PV/_}"
-S=${WORKDIR}/${MY_P}
-
-DESCRIPTION="utils for managing LZMA compressed files"
-HOMEPAGE="http://tukaani.org/xz/"
-SRC_URI="http://tukaani.org/xz/${MY_P}.tar.gz"
+DESCRIPTION="C++ interface for the ATK library"
+HOMEPAGE="http://www.gtkmm.org"
+SRC_URI="http://ftp.gnome.org/pub/gnome/sources/${M32_PN}/${PV%.*}/${M32_P}.tar.xz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 
 KEYWORDS="x86 amd64"
-IUSE="nls +threads"
+IUSE=""
 
-RDEPEND=""
+RDEPEND="
+	dev-cpp/mingw32-glibmm:2
+	dev-libs/mingw32-libsigc++:2
+	dev-libs/mingw32-atk
+"
 DEPEND="
 	${RDEPEND}
 "
 
-
-
 src_configure() {
 	econf \
-		$(use_enable nls) \
-		$(use_enable threads) \
+		--disable-shared \
 	|| die "econf failed"
 
 }
@@ -39,7 +35,6 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
-	rm -r "${D}/usr/share/doc" || die 
 	clean_files
 }
 

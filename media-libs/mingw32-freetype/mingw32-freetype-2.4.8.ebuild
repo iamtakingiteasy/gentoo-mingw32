@@ -31,6 +31,8 @@ src_prepare() {
 		include/freetype/config/ftoption.h \
 	die "unable to disable option FT_CONFIG_OPTION_OLD_INTERNALS"
 
+	sed '/^Libs:/{s/$/ -lz/}' -i builds/unix/freetype2.in
+
 	elibtoolize
 	epunt_cxx
 }

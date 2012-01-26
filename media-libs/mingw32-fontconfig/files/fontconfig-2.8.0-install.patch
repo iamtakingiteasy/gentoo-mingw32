@@ -1,0 +1,18 @@
+diff -ru a/src/Makefile.am b/src/Makefile.am
+--- a/src/Makefile.am	2009-11-19 02:49:09.000000000 +0300
++++ b/src/Makefile.am	2012-01-26 14:25:58.653408775 +0400
+@@ -30,11 +30,11 @@
+ # gcc import library install/uninstall
+ 
+ install-libtool-import-lib: 
+-	$(INSTALL) .libs/libfontconfig.dll.a $(DESTDIR)$(libdir)
++	$(INSTALL) .libs/libfontconfig.a $(DESTDIR)$(libdir)
+ 	$(INSTALL) fontconfig.def $(DESTDIR)$(libdir)/fontconfig.def
+ 
+ uninstall-libtool-import-lib:
+-	-rm $(DESTDIR)$(libdir)/libfontconfig.dll.a $(DESTDIR)$(libdir)/fontconfig.def
++	-rm $(DESTDIR)$(libdir)/libfontconfig.a $(DESTDIR)$(libdir)/fontconfig.def
+ 
+ else
+ 
+

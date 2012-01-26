@@ -20,6 +20,7 @@ IUSE=""
 RDEPEND="
 	media-libs/mingw32-freetype
 	media-libs/mingw32-libpng
+	media-libs/mingw32-fontconfig
 	sys-libs/mingw32-zlib
 	x11-libs/mingw32-pixman
 	dev-libs/mingw32-glib
@@ -65,6 +66,7 @@ src_configure() {
 		--enable-win32-font \
 		--enable-png \
 		--enable-ft \
+		--enable-fc \
 		--enable-ps \
 		--enable-pdf \
 		--enable-svg \
@@ -75,7 +77,7 @@ src_configure() {
 src_install() {
 	emake -j1 DESTDIR="${D}" install || die "emake install failed"
 	rm -rf "${D}usr/share/gtk-doc"
-	mingw32_clean_files
+	clean_files
 }
 
 

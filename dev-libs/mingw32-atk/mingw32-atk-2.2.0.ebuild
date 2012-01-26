@@ -54,6 +54,6 @@ src_install() {
 	mkdir -p "${D}/usr/lib"
 	emake DESTDIR="${D}" install || die "install failed"
 	rm -rf "${D}usr/share/gtk-doc"
-	mingw32_clean_files
+	clean_files
 }
 

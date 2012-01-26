@@ -61,6 +61,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${M32_PN}-3.2.3-mingw.patch"
 	epatch "${FILESDIR}/${M32_PN}-3.2.3-pkgconfig.patch"
 
+	sed '/^Libs:/{s/$/ -lwinspool -lcomdlg32 -lcomctl32/}' -i gtk+-3.0.pc.in
 
 	strip_builddir SRC_SUBDIRS tests Makefile.am Makefile.in
 	strip_builddir SRC_SUBDIRS demos Makefile.am Makefile.in
@@ -94,7 +95,7 @@ src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 	rm -rf "${D}usr/share/gtk-doc"
 	rm "${D}"usr/bin/gtk-update-icon-cache.exe*
-	mingw32_clean_files
+	clean_files
 }
 
 

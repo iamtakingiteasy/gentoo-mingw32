@@ -1,21 +1,27 @@
-diff -ur a/gdk/gdk.h b/gdk/gdk.h
---- a/gdk/gdk.h	2011-11-10 21:38:03.000000000 +0400
-+++ b/gdk/gdk.h	2012-01-24 05:44:13.550801173 +0400
-@@ -186,11 +186,11 @@
-  */
+diff -ru a/gdk/gdktypes.h b/gdk/gdktypes.h
+--- a/gdk/gdktypes.h	2011-11-10 21:38:03.000000000 +0400
++++ b/gdk/gdktypes.h	2012-01-26 18:14:18.537702932 +0400
+@@ -38,6 +38,11 @@
+ #include <glib-object.h>
  
- #if !defined (GDK_DISABLE_DEPRECATED) || defined (GDK_COMPILATION)
--GDKVAR GMutex *gdk_threads_mutex; /* private */
-+GMutex *gdk_threads_mutex; /* private */
+ #ifdef G_OS_WIN32
++#  define GDKVAR extern
++#endif
++
++/*
++#ifdef G_OS_WIN32
+ #  ifdef GDK_COMPILATION
+ #    define GDKVAR __declspec(dllexport)
+ #  else
+@@ -46,7 +51,7 @@
+ #else
+ #  define GDKVAR extern
  #endif
- 
--GDKVAR GCallback gdk_threads_lock;
--GDKVAR GCallback gdk_threads_unlock;
-+GCallback gdk_threads_lock;
-+GCallback gdk_threads_unlock;
- 
- void     gdk_threads_enter                    (void);
- void     gdk_threads_leave                    (void);
+-
++*/
+ /* The system specific file gdkconfig.h contains such configuration
+  * settings that are needed not only when compiling GDK (or GTK)
+  * itself, but also occasionally when compiling programs that use GDK
 diff -ur a/gdk/win32/gdkmain-win32.c b/gdk/win32/gdkmain-win32.c
 --- a/gdk/win32/gdkmain-win32.c	2011-11-10 21:38:03.000000000 +0400
 +++ b/gdk/win32/gdkmain-win32.c	2012-01-24 05:49:38.592971578 +0400

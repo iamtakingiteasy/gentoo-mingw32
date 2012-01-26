@@ -66,7 +66,7 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
-	mingw32_clean_files
+	clean_files
 }
 
 

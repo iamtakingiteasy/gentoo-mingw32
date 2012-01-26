@@ -49,6 +49,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${M32_PN}-2.24.8-iconview-layout.patch"
 	epatch "${FILESDIR}/${M32_PN}-2.24.8-mingw.patch"
 	epatch "${FILESDIR}/${M32_PN}-2.24.8-pkgconfig.patch"
+	sed '/^Libs:/{s/$/ -lwinspool -lcomdlg32 -lcomctl32/}' -i gtk+-2.0.pc.in
 
 	strip_builddir SUBDIRS tutorial docs/Makefile.am docs/Makefile.in
 	strip_builddir SUBDIRS faq docs/Makefile.am docs/Makefile.in
@@ -83,7 +84,7 @@ src_install() {
 	mkdir -p "${D}"usr/lib
 	emake DESTDIR="${D}" install || die "emake install failed"
 	rm -rf "${D}usr/share/gtk-doc"
-	mingw32_clean_files
+	clean_files
 }
 
 

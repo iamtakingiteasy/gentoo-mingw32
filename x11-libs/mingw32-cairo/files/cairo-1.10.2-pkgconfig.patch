@@ -1,13 +1,12 @@
 diff -ru a/src/cairo.pc.in b/src/cairo.pc.in
 --- a/src/cairo.pc.in	2008-03-06 17:31:38.000000000 +0300
-+++ b/src/cairo.pc.in	2012-01-22 20:36:17.306006835 +0400
++++ b/src/cairo.pc.in	2012-01-26 16:01:35.991510280 +0400
 @@ -8,6 +8,7 @@
  Version: @VERSION@
  
  @PKGCONFIG_REQUIRES@: @CAIRO_REQUIRES@
 -Libs: -L${libdir} -lcairo
-+Requires:  gobject-2.0 glib-2.0   pixman-1 >= 0.18.4    freetype2 >= 9.7.3  libpng 
++Requires:  gobject-2.0 glib-2.0   pixman-1 >= 0.18.4    freetype2 >= 9.7.3  libpng fontconfig
 +Libs: -L${libdir} -lcairo -lgdi32 -lmsimg32
  Libs.private: @CAIRO_NONPKGCONFIG_LIBS@
  Cflags: -I${includedir}/cairo
-

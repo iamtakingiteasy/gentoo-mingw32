@@ -59,6 +59,6 @@ src_configure() {
 src_install() {
 	emake -j1 DESTDIR="${D}" install || die "emake install failed"
 	rm -rf "${D}usr/share/gtk-doc"
-	mingw32_clean_files
+	clean_files
 }
 
