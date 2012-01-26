@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit mingw32
+inherit eutils mingw32
 
 DESCRIPTION="GTK+ & GNOME Accessibility Toolkit"
 HOMEPAGE="http://projects.gnome.org/accessibility/"
@@ -25,6 +25,7 @@ DEPEND="
 "
 
 src_prepare() {
+	epatch "${FILESDIR}/${M32_PN}-2.2.0-dllmain.patch"
 	sed 's/^\(SUBDIRS =.*\)tests\(.*\)$/\1\2/' \
 		-i Makefile.am Makefile.in \
 	|| die "sed failed"
@@ -36,7 +37,6 @@ src_prepare() {
 			tests/Makefile.in \
 	|| die "sed 2 failed"
 
-	epatch "${FILESDIR}/${M32_PN}-2.2.0-dllmain.patch"
 
 	elibtoolize
 }
