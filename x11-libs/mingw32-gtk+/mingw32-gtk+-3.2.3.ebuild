@@ -93,6 +93,7 @@ src_install() {
 	mkdir -p "${D}"usr/lib
 	emake DESTDIR="${D}" install || die "emake install failed"
 	rm -rf "${D}usr/share/gtk-doc"
+	rm "${D}"usr/bin/gtk-update-icon-cache.exe*
 	mingw32_clean_files
 }
 
