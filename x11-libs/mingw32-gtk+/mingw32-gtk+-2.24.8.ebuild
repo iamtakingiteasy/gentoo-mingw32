@@ -14,9 +14,9 @@ SRC_URI="
 	mirror://gentoo/introspection.m4.bz2
 "
 
-LICENSE="LGPL-2.1"
+LICENSE="|| ( LGPL-2.1 MPL-1.1 )"
 
-SLOT="3"
+SLOT="2"
 
 KEYWORDS="x86 amd64"
 
@@ -28,7 +28,7 @@ RDEPEND="
 	media-libs/mingw32-fontconfig
 	x11-libs/mingw32-cairo
 	x11-libs/mingw32-pango
-	x11-libs/mingw32-gdk-pixbuf:2
+	x11-libs/mingw32-gdk-pixbuf
 	dev-libs/mingw32-atk
 	dev-libs/mingw32-glib:2
 "
@@ -46,42 +46,29 @@ strip_builddir() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/${M32_PN}-orig-2.24.8-limit-gtksignal-includes.patch"
+	epatch "${FILESDIR}/${M32_PN}-orig-2.24.8-old-icons.patch"
+	epatch "${FILESDIR}/${M32_PN}-orig-2.24.8-iconview-layout.patch"
+	
+	epatch "${FILESDIR}/${M32_PN}-mingw32-2.24.8-configure-static.patch"
+	epatch "${FILESDIR}/${M32_PN}-mingw32-2.24.8-dllmain.patch"
+	epatch "${FILESDIR}/${M32_PN}-mingw32-2.24.8-ldadds.patch"
+	epatch "${FILESDIR}/${M32_PN}-mingw32-2.24.8-gdkvar.patch"
+	epatch "${FILESDIR}/${M32_PN}-mingw32-2.24.8-perf.patch"
+
+	strip_builddir SUBDIRS tutorial docs/Makefile.am docs/Makefile.in
+	strip_builddir SUBDIRS faq docs/Makefile.am docs/Makefile.in
+	strip_builddir SRC_SUBDIRS tests Makefile.am Makefile.in
+	strip_builddir SRC_SUBDIRS demos Makefile.am Makefile.in
+	sed '/^Libs:/{s/$/ -limm32 -lwinspool -lcomdlg32 -lcomctl32/}' -i gtk+-2.0.pc.in || die
+	sed '/^Libs:/{s/$/ -luuid -limm32/}' -i gdk-2.0.pc.in || die
+
 	replace-flags -O3 -O2
 	strip-flags
+	mkdir -p "${S}/m4" || die
+	mv "${WORKDIR}/introspection.m4" "${S}/m4macros" || die
 	
-	sed 's:\(g_test_add_func ("/ui-tests/keys-events.*\):/*\1*/:g' \
-		-i gtk/tests/testing.c || die "sed 1 failed"
-
-	sed '\%/recent-manager/add%,/recent_manager_purge/ d' \
-		-i gtk/tests/recentmanager.c || die "sed 2 failed"
-	
-	sed -e 's:\(SUBDIRS.*\)reftests:\1:' \
-		-i tests/Makefile.* || die "sed 3 failed"
-
-	cp "${FILESDIR}/selector.errors" \
-		tests/css/parser/selector.errors || die "cp failed"
-	
-	rm -v tests/a11y/pickers.{ui,txt} || die "rm failed"
-	
-	epatch "${FILESDIR}/${M32_PN}-orig-3.2.3-failing-tests.patch"
-	epatch "${FILESDIR}/${M32_PN}-mingw32-3.2.3-atk.patch"
-	epatch "${FILESDIR}/${M32_PN}-mingw32-3.2.3-dllmain.patch"
-	epatch "${FILESDIR}/${M32_PN}-mingw32-3.2.3-uuid.patch"
-	epatch "${FILESDIR}/${M32_PN}-mingw32-3.2.3-configure-static.patch"
-	sed \
-		-e '/^Libs:/{s/$/ -luuid -limm32/}' \
-		-i \
-			gdk-3.0.pc.in \
-	|| die
-
-	sed \
-		-e '/^Libs:/{s/$/ -limm32 -lwinspool -lcomdlg32 -lcomctl32/}' \
-		-i \
-			gtk+-3.0.pc.in \
-	|| die
-
-	eautoreconf
-
+	AT_M4DIR=m4macros eautoreconf
 }
 
 src_configure() {
@@ -101,6 +88,5 @@ src_configure() {
 src_install() {
 	mkdir -p "${D}usr/lib"
 	emake DESTDIR="${D}" install || die
-	rm "${D}"usr/bin/gtk-update-icon-cache.exe*
 	clean_files	
 }

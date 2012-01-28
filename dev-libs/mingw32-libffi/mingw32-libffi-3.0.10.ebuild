@@ -1,24 +1,30 @@
 # Copyright 2012 itakingiteasy
 # Distributed under the terms of the WTFPLv2
-# $Header:
+# $Header: $
 
 EAPI=4
 
-inherit libtool toolchain-funcs mingw32
+inherit eutils libtool mingw32
 
-DESCRIPTION="a portable, high level programming interface to various calling conventions"
+DESCRIPTION="a portable, high level programming interface to various calling conventions."
 HOMEPAGE="http://sourceware.org/libffi/"
-SRC_URI="ftp://sourceware.org/pub/${M32_PN}/${M32_P}.tar.gz"
+
+SRC_URI="
+	ftp://sourceware.org/pub/${M32_PN}/${M32_P/_}.tar.gz
+"
 
 LICENSE="MIT"
+
 SLOT="0"
 
 KEYWORDS="x86 amd64"
-IUSE=""
 
-RDEPEND=""
-DEPEND=""
+IUSE="+static-libs"
 
+RDEPEND="
+"
+DEPEND="
+"
 
 src_prepare() {
 	elibtoolize
@@ -26,19 +32,11 @@ src_prepare() {
 
 src_configure() {
 	econf \
-		--disable-shared \
-	|| die "econf failed"
-
+		$(use_static) \
+	|| die
 }
-
-src_compile() {
-	emake DESTDIR="${D}" install \
-	|| die "emake failed"
-}
-
 
 src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
-	clean_files
+	emake DESTDIR="${D}" install || die
+	clean_files	
 }
-

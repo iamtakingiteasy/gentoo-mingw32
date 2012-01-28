@@ -1,0 +1,31 @@
+diff -ru a/configure.ac b/configure.ac
+--- a/configure.ac	2011-12-17 03:50:47.000000000 +0400
++++ b/configure.ac	2012-01-28 17:42:18.797143018 +0400
+@@ -126,16 +126,16 @@
+     ;;
+ esac
+ 
+-if test "$os_win32" = "yes"; then
+-  if test x$enable_static = xyes -o x$enable_static = x; then
+-    AC_MSG_WARN([Disabling static library build, must build as DLL on Windows.])
+-    enable_static=no
+-  fi
+-  if test x$enable_shared = xno; then
+-    AC_MSG_WARN([Enabling shared library build, must build as DLL on Windows.])
+-  fi
+-  enable_shared=yes
+-fi
++#if test "$os_win32" = "yes"; then
++#  if test x$enable_static = xyes -o x$enable_static = x; then
++#    AC_MSG_WARN([Disabling static library build, must build as DLL on Windows.])
++#    enable_static=no
++#  fi
++#  if test x$enable_shared = xno; then
++#    AC_MSG_WARN([Enabling shared library build, must build as DLL on Windows.])
++#  fi
++#  enable_shared=yes
++#fi
+ 
+ dnl Initialize libtool
+ LT_PREREQ([2.2.6])
+

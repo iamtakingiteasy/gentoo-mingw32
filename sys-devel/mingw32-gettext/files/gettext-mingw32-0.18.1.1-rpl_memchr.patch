@@ -1,0 +1,37 @@
+diff -ru a/gettext-runtime/gnulib-lib/string.in.h b/gettext-runtime/gnulib-lib/string.in.h
+--- a/gettext-runtime/gnulib-lib/string.in.h	2010-04-25 13:20:42.000000000 +0400
++++ b/gettext-runtime/gnulib-lib/string.in.h	2012-01-27 18:43:27.476325178 +0400
+@@ -58,7 +58,7 @@
+ /* Return the first instance of C within N bytes of S, or NULL.  */
+ #if @GNULIB_MEMCHR@
+ # if @REPLACE_MEMCHR@
+-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE && !defined(__MINGW32__)) 
+ #   define memchr rpl_memchr
+ #  endif
+ _GL_FUNCDECL_RPL (memchr, void *, (void const *__s, int __c, size_t __n)
+diff -ru a/gettext-tools/gnulib-lib/string.in.h b/gettext-tools/gnulib-lib/string.in.h
+--- a/gettext-tools/gnulib-lib/string.in.h	2010-05-24 13:42:47.000000000 +0400
++++ b/gettext-tools/gnulib-lib/string.in.h	2012-01-27 18:44:19.794386858 +0400
+@@ -58,7 +58,7 @@
+ /* Return the first instance of C within N bytes of S, or NULL.  */
+ #if @GNULIB_MEMCHR@
+ # if @REPLACE_MEMCHR@
+-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE && !defined(__MINGW32__))
+ #   define memchr rpl_memchr
+ #  endif
+ _GL_FUNCDECL_RPL (memchr, void *, (void const *__s, int __c, size_t __n)
+diff -ru a/gettext-tools/libgettextpo/string.in.h b/gettext-tools/libgettextpo/string.in.h
+--- a/gettext-tools/libgettextpo/string.in.h	2010-04-25 13:22:40.000000000 +0400
++++ b/gettext-tools/libgettextpo/string.in.h	2012-01-27 18:44:47.791884727 +0400
+@@ -58,7 +58,7 @@
+ /* Return the first instance of C within N bytes of S, or NULL.  */
+ #if @GNULIB_MEMCHR@
+ # if @REPLACE_MEMCHR@
+-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
++#  if !(defined __cplusplus && defined GNULIB_NAMESPACE && !defined(__MINGW32__))
+ #   define memchr rpl_memchr
+ #  endif
+ _GL_FUNCDECL_RPL (memchr, void *, (void const *__s, int __c, size_t __n)
+

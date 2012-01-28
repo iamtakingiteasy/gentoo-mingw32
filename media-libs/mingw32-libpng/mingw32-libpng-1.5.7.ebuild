@@ -1,46 +1,47 @@
 # Copyright 2012 itakingiteasy
 # Distributed under the terms of the WTFPLv2
-# $Header:
+# $Header: $
 
 EAPI=4
 
 inherit eutils libtool mingw32
 
+
 DESCRIPTION="Portable Network Graphics library"
 HOMEPAGE="http://www.libpng.org/"
+
 SRC_URI="
 	mirror://sourceforge/${M32_PN}/${M32_P}.tar.xz
 "
 
 LICENSE="as-is"
+
 SLOT="0"
 
 KEYWORDS="x86 amd64"
-IUSE=""
+
+IUSE="+static-libs"
 
 RDEPEND="
 	sys-libs/mingw32-zlib
 "
 DEPEND="
 	${RDEPEND}
-	app-arch/mingw32-xz-utils
 "
 
-
 src_prepare() {
-	sed '/Libs:/{s/$/ -lz/}' -i libpng.pc.in
+	sed '/Libs:/{s/$/ -lz/}' -i libpng.pc.in || die
 	elibtoolize
 }
 
+
 src_configure() {
-	append-flags -fno-strict-aliasing
 	econf \
-		--disable-shared \
-	|| die "econf failed"
+		$(use_static) \
+	|| die
 }
 
 src_install() {
-	default
+	emake DESTDIR="${D}" install || die
 	clean_files
 }
-

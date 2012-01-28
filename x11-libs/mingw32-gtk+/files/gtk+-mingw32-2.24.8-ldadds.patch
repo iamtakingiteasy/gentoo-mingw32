@@ -1,0 +1,25 @@
+diff -ru a/gtk/Makefile.am b/gtk/Makefile.am
+--- a/gtk/Makefile.am	2011-11-10 21:38:03.000000000 +0400
++++ b/gtk/Makefile.am	2012-01-28 18:47:28.013031687 +0400
+@@ -1000,7 +1000,7 @@
+ LDADDS =								\
+ 	$(gtktargetlib)							\
+ 	$(top_builddir)/gdk/$(gdktargetlib)                             \
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid -lusp10
+ 
+ if HAVE_INTROSPECTION
+ introspection_files = \
+diff -ru a/gtk/tests/Makefile.am b/gtk/tests/Makefile.am
+--- a/gtk/tests/Makefile.am	2011-11-10 21:38:03.000000000 +0400
++++ b/gtk/tests/Makefile.am	2012-01-28 18:49:15.200109299 +0400
+@@ -16,7 +16,7 @@
+ progs_ldadd = \
+ 	$(top_builddir)/gdk/$(gdktargetlib)				\
+ 	$(top_builddir)/gtk/$(gtktargetlib)				\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid -lusp10
+ 
+ noinst_PROGRAMS = $(TEST_PROGS)
+ 
+

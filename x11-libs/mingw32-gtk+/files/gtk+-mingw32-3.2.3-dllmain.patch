@@ -1,0 +1,39 @@
+diff -ru a/gdk/win32/gdkmain-win32.c b/gdk/win32/gdkmain-win32.c
+--- a/gdk/win32/gdkmain-win32.c	2011-08-16 06:04:34.000000000 +0400
++++ b/gdk/win32/gdkmain-win32.c	2012-01-28 20:24:09.091990005 +0400
+@@ -65,6 +65,7 @@
+   { NULL }
+ };
+ 
++#ifdef DLL_EXPORT
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+ 	 DWORD     dwReason,
+@@ -75,6 +76,8 @@
+   return TRUE;
+ }
+ 
++#endif
++
+ void
+ _gdk_win32_windowing_init (void)
+ {
+diff -ru a/gtk/gtkmain.c b/gtk/gtkmain.c
+--- a/gtk/gtkmain.c	2011-12-19 17:58:28.000000000 +0400
++++ b/gtk/gtkmain.c	2012-01-28 20:24:35.892509342 +0400
+@@ -133,6 +133,7 @@
+ 
+ static HMODULE gtk_dll;
+ 
++#ifdef DLL_EXPORT
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+          DWORD     fdwReason,
+@@ -147,6 +148,7 @@
+ 
+   return TRUE;
+ }
++#endif
+ 
+ /* These here before inclusion of gtkprivate.h so that the original
+  * GTK_LIBDIR and GTK_LOCALEDIR definitions are seen. Yeah, this is a

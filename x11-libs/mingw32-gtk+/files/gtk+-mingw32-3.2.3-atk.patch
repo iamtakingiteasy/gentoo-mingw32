@@ -1,0 +1,10 @@
+diff -ru a/gtk/a11y/gail.c b/gtk/a11y/gail.c
+--- a/gtk/a11y/gail.c	2011-12-19 17:58:28.000000000 +0400
++++ b/gtk/a11y/gail.c	2012-01-28 20:25:35.792435043 +0400
+@@ -800,5 +800,5 @@
+ 
+   _gail_util_install ();
+ 
+-  atk_misc_instance = g_object_new (GAIL_TYPE_MISC, NULL);
++/*  atk_misc_instance = g_object_new (GAIL_TYPE_MISC, NULL); */
+ }

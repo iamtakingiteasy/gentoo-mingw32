@@ -1,0 +1,21 @@
+diff -ru a/gdk-pixbuf/gdk-pixbuf-io.c b/gdk-pixbuf/gdk-pixbuf-io.c
+--- a/gdk-pixbuf/gdk-pixbuf-io.c	2011-12-17 03:50:47.000000000 +0400
++++ b/gdk-pixbuf/gdk-pixbuf-io.c	2012-01-28 16:49:44.365717383 +0400
+@@ -235,6 +235,7 @@
+ 
+ static HMODULE gdk_pixbuf_dll;
+ 
++#ifdef DLL_EXPORT
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+          DWORD     fdwReason,
+@@ -248,7 +249,7 @@
+ 
+   return TRUE;
+ }
+-
++#endif // DLL_EXPORT
+ char *
+ _gdk_pixbuf_win32_get_toplevel (void)
+ {
+
