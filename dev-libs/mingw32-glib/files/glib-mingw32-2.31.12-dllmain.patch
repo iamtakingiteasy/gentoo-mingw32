@@ -1,0 +1,41 @@
+diff -ru a/glib/glib-init.c b/glib/glib-init.c
+--- a/glib/glib-init.c	2011-12-14 08:01:51.000000000 +0400
++++ b/glib/glib-init.c	2012-01-29 01:56:59.913815623 +0400
+@@ -220,6 +220,8 @@
+ 
+ HMODULE glib_dll;
+ 
++#ifdef DLL_EXPORT
++
+ BOOL WINAPI
+ DllMain (HINSTANCE hinstDLL,
+          DWORD     fdwReason,
+@@ -246,6 +248,8 @@
+   return TRUE;
+ }
+ 
++#endif
++
+ #elif defined (__GNUC__)
+ 
+ __attribute__ ((constructor)) static void
+diff -ru a/glib/gutils.h b/glib/gutils.h
+--- a/glib/gutils.h	2011-11-29 04:40:42.000000000 +0400
++++ b/glib/gutils.h	2012-01-29 01:33:09.382472039 +0400
+@@ -340,7 +340,7 @@
+  * On non-Windows platforms, expands to nothing.
+  */
+ 
+-#ifndef G_PLATFORM_WIN32
++#if !defined(G_PLATFORM_WIN32) || !defined(DLL_EXPORT)
+ # define G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
+ #else
+ # define G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)			\
+@@ -368,6 +368,6 @@
+ 
+ #endif	/* !G_DISABLE_DEPRECATED */
+ 
+-#endif /* G_PLATFORM_WIN32 */
++#endif /* !G_PLATFORM_WIN32 || !DLL_EXPORT */
+ 
+ #endif /* __G_UTILS_H__ */

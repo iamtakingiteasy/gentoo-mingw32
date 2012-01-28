@@ -38,6 +38,9 @@ src_prepare() {
 		on your host system; where you are cross-compiling from."
 	fi
 
+	sed '/^Libs:/s/$/ -ldnsapi -lshlwapi/' -i gio-2.0.pc.in || die
+	sed '/^Libs:/s/$/ -lws2_32 -lole32 -lwinmm/' -i glib-2.0.pc.in || die
+	sed '/^Libs:/s/$/ -lffi/' -i gobject-2.0.pc.in || die
 	sed 's/^\(.*\SUBDIRS .*\=.*\)tests\(.*\)$/\1\2/' -i $(find . -name Makefile.am -o -name Makefile.in) || die
 	sed -i -e "/appinfo\/associations/d" gio/tests/appinfo.c || die
 	sed -i -e "/desktop-app-info\/default/d" gio/tests/desktop-app-info.c || die
@@ -53,6 +56,7 @@ src_prepare() {
 	ln -sfn $(type -P true) gio/tests/gdbus-testserver.py
 
 	epatch "${FILESDIR}/${M32_PN}-orig-2.30.1-external-gdbus-codegen.patch"
+	epatch "${FILESDIR}/${M32_PN}-mingw32-2.31.12-dllmain.patch"
 	ln -sfn $(type -P true) py-compile
 	AT_M4DIR="${WORKDIR}" eautoreconf
 	epunt_cxx
