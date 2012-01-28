@@ -18,7 +18,7 @@ LICENSE="LGPL-2"
 
 SLOT="2"
 
-KEYWORDS=""
+KEYWORDS="x86 amd64"
 
 IUSE="+static-libs"
 
