@@ -41,6 +41,8 @@ src_prepare() {
 		|| die "unable to disable option $1"
 	}
 
+	sed -e '/^Libs:/s/$/ -lz/' -i builds/unix/freetype2.in
+
 	if ! use bindist; then
 		enable_option FT_CONFIG_OPTION_SUBPIXEL_RENDERING
 	fi

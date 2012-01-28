@@ -1,0 +1,96 @@
+diff -ru a/demos/gtk-demo/Makefile.am b/demos/gtk-demo/Makefile.am
+--- a/demos/gtk-demo/Makefile.am	2012-01-17 02:01:28.000000000 +0400
++++ b/demos/gtk-demo/Makefile.am	2012-01-29 00:39:24.983301265 +0400
+@@ -64,7 +64,7 @@
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+ 	$(top_builddir)/gdk/libgdk-3.la	\
+ 	$(GTK_DEP_LIBS)				\
+-	-lm
++	-lm -luuid
+ 
+ bin_PROGRAMS = gtk3-demo gtk3-demo-application
+ 
+diff -ru a/demos/pixbuf-demo/Makefile.am b/demos/pixbuf-demo/Makefile.am
+--- a/demos/pixbuf-demo/Makefile.am	2012-01-05 23:19:32.000000000 +0400
++++ b/demos/pixbuf-demo/Makefile.am	2012-01-29 00:39:24.984301247 +0400
+@@ -16,7 +16,7 @@
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+ 	$(top_builddir)/gdk/libgdk-3.la	\
+ 	$(GTK_DEP_LIBS)			\
+-	$(MATH_LIB)
++	$(MATH_LIB) -luuid
+ 
+ noinst_PROGRAMS = 		\
+ 	pixbuf-demo
+diff -ru a/examples/Makefile.am b/examples/Makefile.am
+--- a/examples/Makefile.am	2012-01-05 23:19:32.000000000 +0400
++++ b/examples/Makefile.am	2012-01-29 00:39:41.747000609 +0400
+@@ -42,7 +42,7 @@
+ 	-DGDK_DISABLE_DEPRECATED		\
+ 	-DGTK_DISABLE_DEPRECATED		\
+ 	$(GTK_DEBUG_FLAGS)			\
+-	$(GTK_DEP_CFLAGS)
++	$(GTK_DEP_CFLAGS) -luuid
+ 
+ LDADD = \
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+diff -ru a/gdk/tests/Makefile.am b/gdk/tests/Makefile.am
+--- a/gdk/tests/Makefile.am	2012-01-08 04:02:18.000000000 +0400
++++ b/gdk/tests/Makefile.am	2012-01-29 00:39:24.986301211 +0400
+@@ -13,7 +13,7 @@
+ progs_ldadd = \
+ 	$(GDK_DEP_LIBS) \
+ 	$(top_builddir)/gdk/libgdk-3.la \
+-	$(NULL)
++	$(NULL) -luuid
+ 
+ #TEST_PROGS              += check-gdk-cairo
+ #check_gdk_cairo_SOURCES  = check-gdk-cairo.c
+diff -ru a/gtk/Makefile.am b/gtk/Makefile.am
+--- a/gtk/Makefile.am	2012-01-20 17:12:28.000000000 +0400
++++ b/gtk/Makefile.am	2012-01-29 00:39:24.987301193 +0400
+@@ -1126,7 +1126,7 @@
+ LDADDS =								\
+ 	libgtk-3.la							\
+ 	$(top_builddir)/gdk/libgdk-3.la				\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid
+ 
+ if HAVE_INTROSPECTION
+ introspection_files = \
+diff -ru a/gtk/tests/Makefile.am b/gtk/tests/Makefile.am
+--- a/gtk/tests/Makefile.am	2012-01-09 23:02:21.000000000 +0400
++++ b/gtk/tests/Makefile.am	2012-01-29 00:39:24.989301157 +0400
+@@ -16,7 +16,7 @@
+ progs_ldadd = \
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+ 	$(top_builddir)/gdk/libgdk-3.la	\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid
+ 
+ noinst_PROGRAMS = $(TEST_PROGS)
+ 
+diff -ru a/perf/Makefile.am b/perf/Makefile.am
+--- a/perf/Makefile.am	2012-01-05 23:19:33.000000000 +0400
++++ b/perf/Makefile.am	2012-01-29 00:39:24.990301139 +0400
+@@ -16,7 +16,7 @@
+ LDADDS = \
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+ 	$(top_builddir)/gdk/libgdk-3.la	\
+-	$(GTK_DEP_LIBS)
++	$(GTK_DEP_LIBS) -luuid
+ 
+ noinst_PROGRAMS	= 	\
+ 	testperf
+diff -ru a/tests/Makefile.am b/tests/Makefile.am
+--- a/tests/Makefile.am	2012-01-13 17:49:31.000000000 +0400
++++ b/tests/Makefile.am	2012-01-29 00:39:24.991301121 +0400
+@@ -18,7 +18,7 @@
+ 	$(top_builddir)/gtk/libgtk-3.la	\
+ 	$(top_builddir)/gdk/libgdk-3.la	\
+ 	$(GTK_DEP_LIBS)			\
+-	-lm
++	-lm -luuid
+ 
+ if USE_X11
+ testsocket_programs = testsocket testsocket_child
